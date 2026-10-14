@@ -1,4 +1,4 @@
-name: Deploy BeninPublio to Cloudflare Pages
+name: Deploy BeninPublio to Cloudflare
 
 on:
   push:
@@ -17,7 +17,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Deploy static site
+      - name: Deploy API Worker
+        run: npx wrangler deploy --config wrangler.toml
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      - name: Deploy static storefront
         run: npx wrangler pages deploy . --project-name=beninpublio --branch=main
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
