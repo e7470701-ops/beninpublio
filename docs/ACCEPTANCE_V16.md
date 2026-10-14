@@ -23,8 +23,8 @@ Dernière mise à jour : 14 octobre 2026. Le cahier des charges V16 est la sourc
 | Paiement en ligne | Hors MVP | Confirmation et activation manuelles uniquement |
 | Test de charge 100 vitrines | À faire | Aucune capacité certifiée à 100 vitrines à ce jour |
 | Recette mobile/réseau lent | À faire | Tester sur appareils réels et connexions lentes |
-| Déploiement Worker V16 | Confirmé | Cloudflare a accepté le déploiement du Worker API avec D1/R2 et `AI_ENABLED=false` |
-| Déploiement Pages V16 | Confirmé | Déploiement Direct Upload de production `25548e98-784e-464f-9e5f-c669b26075bc`, statut `success` |
+| Déploiement Worker V16 | Confirmé | Dernier déploiement `e0e419f8-8bd6-4358-ae2d-d986ab6b656e` accepté avec D1/R2, `AI_ENABLED=false`, routes admin corrigées et rotation du mot de passe |
+| Déploiement Pages V16 | Confirmé | Déploiement Direct Upload de production `1e15abc0-65a4-4ae2-a8ec-a6e4a1a51d06`, statut `success` |
 
 ## Contrôles manuels obligatoires avant pilote
 
