@@ -3,17 +3,16 @@ main = "src/worker.js"
 compatibility_date = "2026-10-14"
 workers_dev = true
 
-# Create D1 and R2 resources, then fill IDs before deploying API.
-# [[d1_databases]]
-# binding = "DB"
-# database_name = "beninpublio-db"
-# database_id = "REPLACE_WITH_REAL_DATABASE_ID"
-# migrations_dir = "db/migrations"
+[[d1_databases]]
+binding = "DB"
+database_name = "beninpublio-db"
+database_id = "e81e3650-f4d6-4207-83a6-9969d9f1e220"
+migrations_dir = "db/migrations"
 
-# [[r2_buckets]]
-# binding = "MEDIA"
-# bucket_name = "beninpublio-media"
+[[r2_buckets]]
+binding = "MEDIA"
+bucket_name = "beninpublio-media"
 
 [vars]
-APP_ENV = "development"
+APP_ENV = "production"
 AI_ENABLED = "false"
