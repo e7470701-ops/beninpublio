@@ -29,10 +29,11 @@ Dernière mise à jour : 14 octobre 2026. Le cahier des charges V16 est la sourc
 ## Intégration du brief design V1
 
 - [x] Brief V1 conservé dans `docs/BeninPublio_Design_Brief_V1.md`.
-- [x] Tokens de couleur, logo SVG et favicon intégrés ; focus clavier et cibles tactiles améliorés.
-- [x] Bouton mobile fixe « Commander via WhatsApp » ajouté à la vitrine ; il ouvre le panier et ne déclenche pas seul l’envoi du message.
+- [x] Tokens de couleur, logo SVG et favicon intégrés au dépôt GitHub ; focus clavier et cibles tactiles améliorés.
+- [x] Bouton mobile fixe « Commander via WhatsApp » ajouté au code de la vitrine ; il ouvre le panier et ne déclenche pas seul l’envoi du message.
 - [x] Textes exacts de stockage proche/plein et de vitrine indisponible intégrés dans les surfaces concernées.
 - [ ] Les maquettes haute-fidélité des huit écrans ne sont pas incluses dans le ZIP fourni ; elles restent à produire.
+- [ ] Nouveau déploiement Pages production à effectuer : le projet utilise Direct Upload, un commit GitHub seul ne publie pas les nouveaux fichiers.
 - [ ] Validation visuelle sur vrais appareils et recette navigateur restent à faire.
 
 ## Contrôles manuels obligatoires avant pilote
