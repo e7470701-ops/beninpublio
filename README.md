@@ -1,25 +1,37 @@
 # BeninPublio
 **Achetez • Vendez • Grandissez** — Votre commerce en ligne, simplement au Bénin.
 
-Ce dépôt démarre le socle du produit décrit dans le cahier des charges V14.
+## Environnements
+- Site public : https://beninpublio.pages.dev
+- Espace commerçant : https://beninpublio.pages.dev/merchant.html
+- API Worker : https://beninpublio-api.e7470701.workers.dev
+- Santé API : https://beninpublio-api.e7470701.workers.dev/api/health
 
-## Architecture cible
-- Frontend responsive et mobile-first
-- Cloudflare Workers : API et règles métier
-- Cloudflare D1 : données relationnelles
-- Cloudflare R2 : médias, quotas Starter 150 Mo / PRO 250 Mo
-- GitHub : versionnage et déploiements continus
+## Ressources Cloudflare créées
+- Pages : `beninpublio`
+- Worker : `beninpublio-api`
+- D1 : `beninpublio-db` (schéma initial appliqué)
+- R2 : `beninpublio-media` (bucket privé, liaison Worker configurée)
 
-## Statut
-Le dépôt commence par une vitrine de démonstration. L'authentification sécurisée, les permissions multi-tenant, les opérations D1/R2, les abonnements, les reçus et les garde-fous IA doivent être implémentés et testés avant de traiter des données réelles ou d'ouvrir le service en production.
+## Fonctionnalités en place
+- Vitrine responsive et catalogue de démonstration.
+- Panier local et préparation d'un message WhatsApp que le visiteur doit confirmer lui-même.
+- Espace commerçant : inscription, connexion, déconnexion, édition des informations de vitrine, création de produits et publications en brouillon.
+- API avec mots de passe PBKDF2, jetons de session aléatoires dont seul le hash est stocké, limitation de fréquence et journal d'audit partiel.
+- Requêtes de catalogue filtrées par vitrine (tenant) et limites de produits par formule.
+- Plans Starter/PRO dans D1 et limites de stockage de 150 Mo / 250 Mo conservées.
 
-## Démarrage
-Ouvrir `index.html` directement dans un navigateur ou servir ce dossier avec un serveur statique.
+## Limites importantes
+Ce projet est en phase d'implémentation et n'est pas encore prêt pour une commercialisation publique. Les vitrines sont créées en brouillon ; le parcours d'activation administrateur et les abonnements ne sont pas terminés. Les uploads R2 avec contrôles MIME/EXIF/quota, le tableau de bord super-admin, les reçus, les statistiques, les tests automatisés d'isolation, la sauvegarde/restauration et la vérification juridique restent à réaliser. L'IA et les paiements en ligne sont désactivés.
+
+## Déploiement automatique
+Le workflow GitHub Actions déploie le Worker et la vitrine à chaque push sur `main`. Il nécessite les secrets de dépôt `CLOUDFLARE_ACCOUNT_ID` et `CLOUDFLARE_API_TOKEN` (token Cloudflare avec droits de déploiement Workers et Pages). La dernière vitrine a été publiée directement par API ; le prochain déploiement automatique dépend de ces secrets.
 
 ## Décisions V14 préservées
 - Starter : 30 produits, 12 posts illustrés, 30 posts texte, 150 Mo.
 - PRO : 70 produits, 30 posts illustrés, 50 posts texte, 250 Mo.
-- Tarifs évoqués, à confirmer : 5 500 et 11 300 FCFA/mois.
+- Tarifs évoqués, à confirmer avant commercialisation : 5 500 et 11 300 FCFA/mois.
 - WhatsApp : le visiteur confirme lui-même l'envoi.
-- IA facultative, brouillons soumis à validation humaine, budgets plafonnés.
+- IA facultative, désactivée par défaut, brouillons soumis à validation humaine, budgets plafonnés avant activation.
 - Paiements en ligne hors MVP.
+- Cible de capacité : 100 vitrines actives après pilote et tests de charge ; ce n'est pas encore une capacité certifiée.
