@@ -12,7 +12,7 @@ const redirects = read("../_redirects");
 const wrangler = read("../wrangler.toml");
 
 test("V16 presents BeninPublio as the platform, not as a collective shop", () => {
-  assert.match(home, /BeninPublio est l’application/i);
+  assert.match(home, /BeninPublio est la plateforme/i);
   assert.doesNotMatch(home, /Les vitrines du Bénin/);
   assert.match(storefrontJs, /Nos produits/);
 });
