@@ -20,7 +20,7 @@ Ce tableau distingue ce qui existe dans le dépôt de ce qui a été confirmé e
 | Isolation multi-tenant | Partiel | Requêtes principales filtrées par tenant ; tests d’intrusion automatisés à ajouter |
 | Sauvegarde / restauration | À faire | Procédure, rotation et restauration testée |
 | Capacité pour 100 vitrines | À faire | Pas de test de charge ni mesure de capacité certifiée |
-| CI syntaxe et contrat public | Réussi | Workflow GitHub Actions : contrôle JS et tests API publics passés sur le commit `561a15fff2f441ad63d0093bc8021c64cfef34a9` |
+| CI syntaxe et contrat public | Réussi | Workflow GitHub Actions : contrôle JS et tests API publics passés sur le commit `8c7f5bc4` |
 | Déploiement complet Pages + Worker | Bloqué par configuration | Le workflow saute le déploiement si `CLOUDFLARE_ACCOUNT_ID` et `CLOUDFLARE_API_TOKEN` sont absents des secrets GitHub |
 
 ## Décisions commerciales préservées
