@@ -33,7 +33,8 @@ Dernière mise à jour : 14 octobre 2026. Le cahier des charges V16 est la sourc
 - [x] Bouton mobile fixe « Commander via WhatsApp » ajouté au code de la vitrine ; il ouvre le panier et ne déclenche pas seul l’envoi du message.
 - [x] Textes exacts de stockage proche/plein et de vitrine indisponible intégrés dans les surfaces concernées.
 - [ ] Les maquettes haute-fidélité des huit écrans ne sont pas incluses dans le ZIP fourni ; elles restent à produire.
-- [ ] Nouveau déploiement Pages production à effectuer : le projet utilise Direct Upload, un commit GitHub seul ne publie pas les nouveaux fichiers.
+- [x] Nouveau déploiement Pages production effectué via le workflow GitHub Actions ; le Worker et les 11 fichiers statiques, plus `_headers` et `_redirects`, ont été publiés avec succès. Le workflow prépare maintenant aussi le logo et le favicon dans `assets/`.
+- [x] Le workflow de déploiement automatique est opérationnel ; les tests API et contrat V16 ont réussi sur le dernier run.
 - [ ] Validation visuelle sur vrais appareils et recette navigateur restent à faire.
 
 ## Contrôles manuels obligatoires avant pilote
