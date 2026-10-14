@@ -45,8 +45,8 @@ Le déploiement technique n'est pas équivalent à une recette de production. Av
 ## Déploiement
 
 - Le Worker `beninpublio-api` est déployé sur Cloudflare et lié à D1/R2 ; `AI_ENABLED=false`.
-- Le projet Pages est en Direct Upload. Après des changements de frontend, il faut publier les assets via l'API de déploiement Pages ; un commit GitHub seul ne suffit pas à actualiser la production.
-- Pour les prochains déploiements reproductibles, le workflow GitHub peut être configuré avec les secrets Cloudflare appropriés.
+- Le projet Pages est en Direct Upload. Le workflow `.github/workflows/deploy-pages.yml` prépare les fichiers publics complets, y compris la vitrine, `_headers`, `_redirects` et `assets/`, puis déploie Worker et Pages après validation.
+- Le workflow utilise le secret GitHub Actions `CLOUDFLARE_API_TOKEN` ; l'identifiant de compte Cloudflare est configuré dans le workflow. Le dernier déploiement automatisé Worker + Pages a réussi.
 - Le schéma initial V16 est décrit dans `db/migrations/0001_initial.sql`; les modifications de production sont documentées dans `db/migrations/0002_v16_storefront.sql`.
 
 ## Formules de référence
