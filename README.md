@@ -1,38 +1,58 @@
 # BeninPublio
+
 **Achetez • Vendez • Grandissez** — Votre commerce en ligne, simplement au Bénin.
 
+## Source de vérité
+
+Le cahier des charges fonctionnel et technique **V16 du 14 octobre 2026** remplace les documents antérieurs pour les nouvelles décisions. BeninPublio est la plateforme SaaS qui crée, héberge et gère des vitrines individuelles. Chaque commerçant gère uniquement sa vitrine ; le visiteur final voit uniquement la page publique de ce commerce.
+
 ## Environnements
-- Site public : https://beninpublio.pages.dev
+
+- Plateforme BeninPublio : https://beninpublio.pages.dev
+- Exemple de route vitrine : https://beninpublio.pages.dev/b/nom-du-commerce
 - Espace commerçant : https://beninpublio.pages.dev/merchant.html
-- Console super-admin (après configuration du secret de bootstrap) : https://beninpublio.pages.dev/admin.html
+- Console super-admin : https://beninpublio.pages.dev/admin.html
 - API Worker : https://beninpublio-api.e7470701.workers.dev
-- Santé API : https://beninpublio-api.e7470701.workers.dev/api/health
 
-## Ressources Cloudflare créées
-- Pages : `beninpublio`
-- Worker : `beninpublio-api`
-- D1 : `beninpublio-db` (schéma initial appliqué)
-- R2 : `beninpublio-media` (bucket privé, liaison Worker configurée)
+## Architecture
 
-## Fonctionnalités en place
-- Vitrine responsive reliée aux endpoints publics du catalogue ; affichage des vitrines et produits publiés uniquement, panier limité à un commerce et WhatsApp adressé au numéro de ce commerce.
-- Panier local et préparation d'un message WhatsApp que le visiteur doit confirmer lui-même.
-- Espace commerçant : inscription, connexion, édition de vitrine, création et publication explicite de produits/posts sous réserve d’activation, statistiques agrégées sur 30 jours et reçus manuels imprimables.
-- API avec mots de passe PBKDF2, jetons de session aléatoires dont seul le hash est stocké, limitation de fréquence et journal d'audit partiel.
-- Requêtes de catalogue filtrées par vitrine (tenant) et limites de produits par formule.
-- Plans Starter/PRO dans D1 et limites de stockage de 150 Mo / 250 Mo conservées.
+- Cloudflare Pages : interface plateforme et vitrines publiques
+- Cloudflare Workers : API, authentification, permissions et règles métier
+- D1 `beninpublio-db` : données relationnelles multi-tenant
+- R2 `beninpublio-media` : images et médias privés servis uniquement s'ils sont publiables
 
-## Limites importantes
-Ce projet est en phase d'implémentation et n'est pas encore prêt pour une commercialisation publique. Les vitrines sont créées en brouillon ; le parcours d'activation administrateur et les abonnements ne sont pas terminés. Les uploads R2 avec contrôles MIME/EXIF/quota, le tableau de bord super-admin, les reçus, les statistiques, les tests automatisés d'isolation, la sauvegarde/restauration et la vérification juridique restent à réaliser. L'IA et les paiements en ligne sont désactivés.
+## Comportement V16 implémenté
 
-## Déploiement automatique
-Cloudflare Pages est relié à GitHub : les commits sur `main` déclenchent automatiquement le déploiement de la vitrine. Le workflow GitHub Actions déploie le Worker API lorsque les secrets `CLOUDFLARE_ACCOUNT_ID` et `CLOUDFLARE_API_TOKEN` sont configurés ; sans eux, l'étape Worker est ignorée sans faire échouer le workflow. Le Worker est déjà déployé directement dans Cloudflare.
+- Page d'accueil présentant BeninPublio comme plateforme, et non comme une boutique collective.
+- Vitrine individuelle par slug via `/b/<slug>`, avec produits, actualités, contacts, panier et QR code.
+- API de catalogue par vitrine : les anciennes routes de liste globale des produits, posts et commerces renvoient une erreur et ne doivent pas être utilisées.
+- Espace commerçant avec inscription, connexion, profil, produits, posts, médias, stats et reçus.
+- Upload image avec validation du format, dimensions, retrait EXIF JPEG, quota de stockage et compression côté navigateur.
+- Logo de vitrine stocké dans R2, métadonnées dans D1.
+- Règles serveur Starter/PRO et limites de stockage de 150 Mo / 250 Mo.
+- Console super-admin pour activer/suspendre les vitrines, accorder les essais et gérer les plans ; affichage du journal d'audit récent.
+- WhatsApp : message prérempli, envoi déclenché par le visiteur et confirmation manuelle du commerçant.
+- IA désactivée ; aucun paiement en ligne intégré dans le MVP.
 
-## Décisions V14 préservées
-- Starter : 30 produits, 12 posts illustrés, 30 posts texte, 150 Mo.
-- PRO : 70 produits, 30 posts illustrés, 50 posts texte, 250 Mo.
-- Tarifs évoqués, à confirmer avant commercialisation : 5 500 et 11 300 FCFA/mois.
-- WhatsApp : le visiteur confirme lui-même l'envoi.
-- IA facultative, désactivée par défaut, brouillons soumis à validation humaine, budgets plafonnés avant activation.
-- Paiements en ligne hors MVP.
-- Cible de capacité : 100 vitrines actives après pilote et tests de charge ; ce n'est pas encore une capacité certifiée.
+## Limites V16 encore à valider
+
+Le déploiement technique n'est pas équivalent à une recette de production. Avant un pilote commercial, il reste à valider le parcours complet dans un navigateur réel, l'isolation avec deux comptes, les règles de downgrade/restauration des contenus, les scénarios d'expiration, les sauvegardes et une restauration réellement testée, la charge à 100 vitrines, le mobile et les réseaux lents. Voir [docs/ACCEPTANCE_V16.md](docs/ACCEPTANCE_V16.md).
+
+## Déploiement
+
+- Le Worker `beninpublio-api` est déployé sur Cloudflare et lié à D1/R2 ; `AI_ENABLED=false`.
+- Le projet Pages est en Direct Upload. Après des changements de frontend, il faut publier les assets via l'API de déploiement Pages ; un commit GitHub seul ne suffit pas à actualiser la production.
+- Pour les prochains déploiements reproductibles, le workflow GitHub peut être configuré avec les secrets Cloudflare appropriés.
+- Le schéma initial V16 est décrit dans `db/migrations/0001_initial.sql`; les modifications de production sont documentées dans `db/migrations/0002_v16_storefront.sql`.
+
+## Formules de référence
+
+| Limite | Starter | PRO |
+|---|---:|---:|
+| Produits actifs | 30 | 70 |
+| Images par produit | 1 | 3 |
+| Posts illustrés actifs | 12 | 30 |
+| Posts textuels actifs | 30 | 50 |
+| Stockage par vitrine | 150 Mo | 250 Mo |
+
+Prix évoqués, **à valider avant commercialisation** : Starter 5 500 FCFA/mois, PRO 11 300 FCFA/mois.
