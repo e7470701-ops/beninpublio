@@ -1,15 +1,15 @@
--- BeninPublio V14: schéma initial de référence, à valider avant application.
+-- BeninPublio V16: schéma initial de référence.
 PRAGMA foreign_keys = ON;
 CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY,email TEXT UNIQUE,phone TEXT UNIQUE,password_hash TEXT NOT NULL,role TEXT NOT NULL DEFAULT 'merchant' CHECK(role IN ('merchant','super_admin')),status TEXT NOT NULL DEFAULT 'active' CHECK(status IN ('active','suspended','pending')),created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
 CREATE TABLE IF NOT EXISTS plans (id TEXT PRIMARY KEY,name TEXT NOT NULL UNIQUE,price_xof INTEGER NOT NULL CHECK(price_xof>=0),active_products INTEGER NOT NULL,product_images INTEGER NOT NULL,illustrated_posts INTEGER NOT NULL,text_posts INTEGER NOT NULL,storage_bytes INTEGER NOT NULL,features_json TEXT NOT NULL DEFAULT '{}');
 INSERT OR IGNORE INTO plans(id,name,price_xof,active_products,product_images,illustrated_posts,text_posts,storage_bytes) VALUES('starter','Starter',5500,30,1,12,30,157286400),('pro','PRO',11300,70,3,30,50,262144000);
-CREATE TABLE IF NOT EXISTS stores(id TEXT PRIMARY KEY,owner_user_id TEXT NOT NULL REFERENCES users(id),slug TEXT NOT NULL UNIQUE,name TEXT NOT NULL,description TEXT DEFAULT '',sector TEXT,phone TEXT,whatsapp TEXT,status TEXT NOT NULL DEFAULT 'draft' CHECK(status IN ('draft','active','suspended')),plan_id TEXT NOT NULL REFERENCES plans(id),expires_at TEXT,created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE IF NOT EXISTS stores(id TEXT PRIMARY KEY,owner_user_id TEXT NOT NULL REFERENCES users(id),slug TEXT NOT NULL UNIQUE,name TEXT NOT NULL,description TEXT DEFAULT '',sector TEXT,phone TEXT,whatsapp TEXT,status TEXT NOT NULL DEFAULT 'draft' CHECK(status IN ('draft','active','suspended')),plan_id TEXT NOT NULL REFERENCES plans(id),expires_at TEXT,logo_media_id TEXT REFERENCES media(id),created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
 CREATE TABLE IF NOT EXISTS subscriptions(id TEXT PRIMARY KEY,tenant_id TEXT NOT NULL REFERENCES stores(id),plan_id TEXT NOT NULL REFERENCES plans(id),status TEXT NOT NULL CHECK(status IN ('trial','pending','active','expired','cancelled')),starts_at TEXT,ends_at TEXT,payment_status TEXT NOT NULL DEFAULT 'pending',created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
 CREATE TABLE IF NOT EXISTS categories(id TEXT PRIMARY KEY,tenant_id TEXT REFERENCES stores(id),name TEXT NOT NULL,type TEXT NOT NULL DEFAULT 'product',active INTEGER NOT NULL DEFAULT 1);
 CREATE TABLE IF NOT EXISTS products(id TEXT PRIMARY KEY,tenant_id TEXT NOT NULL REFERENCES stores(id),category_id TEXT REFERENCES categories(id),name TEXT NOT NULL,description TEXT NOT NULL DEFAULT '',price_xof INTEGER NOT NULL CHECK(price_xof>=0),status TEXT NOT NULL DEFAULT 'draft' CHECK(status IN ('draft','published','archived')),sort_order INTEGER NOT NULL DEFAULT 0,created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
 CREATE INDEX IF NOT EXISTS idx_products_tenant_status ON products(tenant_id,status);
 CREATE TABLE IF NOT EXISTS media(id TEXT PRIMARY KEY,tenant_id TEXT NOT NULL REFERENCES stores(id),object_key TEXT NOT NULL UNIQUE,mime TEXT NOT NULL,size_bytes INTEGER NOT NULL CHECK(size_bytes>=0),width INTEGER,height INTEGER,checksum TEXT,created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
-CREATE TABLE IF NOT EXISTS product_media(product_id TEXT NOT NULL REFERENCES products(id),media_id TEXT NOT NULL REFERENCES media(id),position INTEGER NOT NULL DEFAULT 0,PRIMARY KEY(product_id,media_id));
+CREATE TABLE IF NOT EXISTS product_media(product_id TEXT NOT NULL REFERENCES products(id),media_id TEXT NOT NULL REFERENCES media(id),position INTEGER NOT NULL DEFAULT 0,active INTEGER NOT NULL DEFAULT 1 CHECK(active IN (0,1)),PRIMARY KEY(product_id,media_id));
 CREATE TABLE IF NOT EXISTS posts(id TEXT PRIMARY KEY,tenant_id TEXT NOT NULL REFERENCES stores(id),category_id TEXT REFERENCES categories(id),title TEXT NOT NULL,body TEXT NOT NULL DEFAULT '',media_id TEXT REFERENCES media(id),status TEXT NOT NULL DEFAULT 'draft' CHECK(status IN ('draft','published','expired')),publish_at TEXT,expires_at TEXT,created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
 CREATE INDEX IF NOT EXISTS idx_posts_tenant_status ON posts(tenant_id,status);
 CREATE TABLE IF NOT EXISTS receipts(id TEXT PRIMARY KEY,tenant_id TEXT NOT NULL REFERENCES stores(id),receipt_number TEXT NOT NULL,snapshot_json TEXT NOT NULL,created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,expires_at TEXT,UNIQUE(tenant_id,receipt_number));
@@ -22,3 +22,7 @@ CREATE TABLE IF NOT EXISTS sessions (id TEXT PRIMARY KEY,user_id TEXT NOT NULL R
 CREATE INDEX IF NOT EXISTS idx_sessions_user ON sessions(user_id);
 CREATE TABLE IF NOT EXISTS rate_limits(bucket TEXT PRIMARY KEY,window_started INTEGER NOT NULL,attempts INTEGER NOT NULL DEFAULT 0);
 CREATE INDEX IF NOT EXISTS idx_stores_owner ON stores(owner_user_id);
+
+CREATE INDEX IF NOT EXISTS idx_media_tenant ON media(tenant_id);
+CREATE INDEX IF NOT EXISTS idx_subscriptions_tenant_status ON subscriptions(tenant_id,status);
+CREATE INDEX IF NOT EXISTS idx_audit_tenant_created ON audit_logs(tenant_id,created_at);
