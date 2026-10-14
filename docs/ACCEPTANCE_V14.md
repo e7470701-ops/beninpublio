@@ -16,7 +16,7 @@ Ce tableau distingue ce qui existe dans le dépôt de ce qui a été confirmé e
 | Statistiques agrégées | Implémenté dans le code | Vues vitrine, vues produits, clics WhatsApp sur 30 jours ; déduplication bots à améliorer |
 | Super-admin et abonnements | Implémenté dans le code | Bootstrap protégé par secret, essai 14 jours, activation manuelle 30 jours, suspension, plans et audit ; secret Worker à configurer |
 | Expiration et réactivation | Partiel | Vitrines expirées filtrées des routes publiques ; suspension et rappel automatiques complets encore à construire |
-| Catégories / secteurs administrables | À faire | CRUD et règles de suppression/migration des catégories |
+| Catégories administrables | Partiel | CRUD global côté super-admin et catégories propres au commerçant ; la gestion structurée des secteurs et les migrations de catégories utilisées restent à compléter |
 | Isolation multi-tenant | Partiel | Requêtes principales filtrées par tenant ; tests d’intrusion automatisés à ajouter |
 | Sauvegarde / restauration | À faire | Procédure, rotation et restauration testée |
 | Capacité pour 100 vitrines | À faire | Pas de test de charge ni mesure de capacité certifiée |
