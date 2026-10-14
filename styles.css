@@ -2,3 +2,23 @@
 .store-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:24px 0}.store-card{display:flex;align-items:center;gap:12px;padding:14px;background:#fff;border:1px solid var(--line);border-radius:12px;min-width:0}.store-card:hover{border-color:#b5cbb6;box-shadow:0 8px 24px #0d3b1c0b}.store-initial{display:grid;place-items:center;flex:0 0 42px;height:42px;border-radius:12px;background:#edf5e9;color:var(--green);font:800 18px Manrope}.store-card-copy{display:flex;flex:1;min-width:0;flex-direction:column;gap:4px}.store-card-copy b{font-size:13px;overflow-wrap:anywhere}.store-card-copy small{font-size:10px;color:var(--muted)}.product-shop{display:inline-block;font-size:10px;color:var(--green);font-weight:800;margin-bottom:6px}.product-description{font-size:11px;line-height:1.5;color:var(--muted);min-height:33px;margin-bottom:14px}.product-link{display:flex;text-decoration:none}.product-link .emoji{font-size:64px}.catalog .empty{grid-column:1/-1}.demo-note{line-height:1.6}@media(max-width:700px){.store-list{grid-template-columns:1fr}.product-description{min-height:0}}
 .product-art img{width:100%;height:100%;object-fit:cover;display:block}.product-art .tag{z-index:1}.product-art{background:#edf5e9}
 .news-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}.news-card{overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:13px}.news-card>img{display:block;width:100%;height:170px;object-fit:cover}.news-copy{padding:17px}.news-copy small{font-size:10px;color:var(--muted)}.news-copy h3{font:800 16px Manrope;margin:10px 0}.news-copy p{font-size:12px;line-height:1.7;color:var(--muted);white-space:pre-wrap}.news-copy a{font-size:11px;font-weight:800;color:var(--green)}.news-section{padding-top:40px;padding-bottom:60px}
+
+/* BeninPublio Design Brief V1 — accessible, mobile-first component layer */
+:root{--bp-green:#075B35;--bp-green-deep:#063E27;--bp-orange:#F07818;--bp-yellow:#F5C400;--bp-white:#FFFFFF;--bp-gray:#F5F5F5;--bp-text:#333333;--bp-muted:#666666;--bp-radius:12px;--bp-shadow:0 8px 28px rgba(6,62,39,.08)}
+.brand-logo{display:block;width:44px;height:44px;flex:0 0 44px;object-fit:contain}.brand{gap:11px}
+button,a,input,textarea,select{touch-action:manipulation}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #F07818;outline-offset:3px}
+button:disabled{opacity:.55;cursor:not-allowed}
+.panel,.admin-panel,.store-product,.store-post{box-shadow:0 2px 12px rgba(6,62,39,.025)}
+.field,.admin-field{color:#333}.control,.admin-input{min-height:44px;color:#333}
+.primary,.mini-btn,.cart-button,.store-whatsapp,.store-add,.store-cart-open{min-height:42px}
+.primary:focus-visible,.store-add:focus-visible,.store-cart-open:focus-visible{outline-color:#F07818}
+.store-mobile-cta{display:none}
+@media(max-width:600px){
+.brand-logo{width:38px;height:38px;flex-basis:38px}
+body:has(.store-mobile-cta){padding-bottom:76px}
+.store-mobile-cta{display:block;position:fixed;z-index:25;bottom:0;left:0;right:0;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.97);border-top:1px solid #e8eee8;box-shadow:0 -8px 25px rgba(6,62,39,.09)}
+.store-mobile-cta button{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:48px;border:0;border-radius:10px;background:#075B35;color:#fff;font-weight:800;font-size:14px;cursor:pointer}
+.store-mobile-cta span{display:inline-grid;place-items:center;min-width:23px;height:23px;padding:0 6px;border-radius:99px;background:#F07818;color:#fff;font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
