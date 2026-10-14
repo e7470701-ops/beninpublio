@@ -4,6 +4,7 @@
 ## Environnements
 - Site public : https://beninpublio.pages.dev
 - Espace commerçant : https://beninpublio.pages.dev/merchant.html
+- Console super-admin (après configuration du secret de bootstrap) : https://beninpublio.pages.dev/admin.html
 - API Worker : https://beninpublio-api.e7470701.workers.dev
 - Santé API : https://beninpublio-api.e7470701.workers.dev/api/health
 
@@ -14,9 +15,9 @@
 - R2 : `beninpublio-media` (bucket privé, liaison Worker configurée)
 
 ## Fonctionnalités en place
-- Vitrine responsive et catalogue de démonstration.
+- Vitrine responsive reliée aux endpoints publics du catalogue ; affichage des vitrines et produits publiés uniquement, panier limité à un commerce et WhatsApp adressé au numéro de ce commerce.
 - Panier local et préparation d'un message WhatsApp que le visiteur doit confirmer lui-même.
-- Espace commerçant : inscription, connexion, déconnexion, édition des informations de vitrine, création de produits et publications en brouillon.
+- Espace commerçant : inscription, connexion, édition de vitrine, création et publication explicite de produits/posts sous réserve d’activation, statistiques agrégées sur 30 jours et reçus manuels imprimables.
 - API avec mots de passe PBKDF2, jetons de session aléatoires dont seul le hash est stocké, limitation de fréquence et journal d'audit partiel.
 - Requêtes de catalogue filtrées par vitrine (tenant) et limites de produits par formule.
 - Plans Starter/PRO dans D1 et limites de stockage de 150 Mo / 250 Mo conservées.
