@@ -26,6 +26,15 @@ Dernière mise à jour : 14 octobre 2026. Le cahier des charges V16 est la sourc
 | Déploiement Worker V16 | Confirmé | Dernier déploiement `89a38c89-e440-4c96-8173-72af2d68a133` accepté avec D1/R2, `AI_ENABLED=false`, routes admin corrigées, garde d'authentification et rotation du mot de passe |
 | Déploiement Pages V16 | Confirmé | Déploiement Direct Upload de production `1e15abc0-65a4-4ae2-a8ec-a6e4a1a51d06`, statut `success` |
 
+## Intégration du brief design V1
+
+- [x] Brief V1 conservé dans `docs/BeninPublio_Design_Brief_V1.md`.
+- [x] Tokens de couleur, logo SVG et favicon intégrés ; focus clavier et cibles tactiles améliorés.
+- [x] Bouton mobile fixe « Commander via WhatsApp » ajouté à la vitrine ; il ouvre le panier et ne déclenche pas seul l’envoi du message.
+- [x] Textes exacts de stockage proche/plein et de vitrine indisponible intégrés dans les surfaces concernées.
+- [ ] Les maquettes haute-fidélité des huit écrans ne sont pas incluses dans le ZIP fourni ; elles restent à produire.
+- [ ] Validation visuelle sur vrais appareils et recette navigateur restent à faire.
+
 ## Contrôles manuels obligatoires avant pilote
 
 1. Configurer `ADMIN_BOOTSTRAP_SECRET` dans les secrets du Worker, créer le super-admin puis retirer le secret.
