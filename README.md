@@ -34,6 +34,10 @@ Le cahier des charges fonctionnel et technique **V16 du 14 octobre 2026** rempla
 - WhatsApp : message prérempli, envoi déclenché par le visiteur et confirmation manuelle du commerçant.
 - IA désactivée ; aucun paiement en ligne intégré dans le MVP.
 
+## Design V1 intégré
+
+Le brief fourni est conservé dans [docs/BeninPublio_Design_Brief_V1.md](docs/BeninPublio_Design_Brief_V1.md) et son système de design dans [docs/DESIGN_SYSTEM_V1.md](docs/DESIGN_SYSTEM_V1.md). Le dépôt comprend désormais un logo SVG, un favicon, des états de focus clavier visibles, des cibles tactiles adaptées et un bouton mobile fixe « Commander via WhatsApp » sur les vitrines. Les maquettes haute-fidélité mentionnées dans le brief ne figuraient pas dans l’archive reçue ; elles ne sont donc pas présentées comme livrées.
+
 ## Limites V16 encore à valider
 
 Le déploiement technique n'est pas équivalent à une recette de production. Avant un pilote commercial, il reste à valider le parcours complet dans un navigateur réel, l'isolation avec deux comptes, les règles de downgrade/restauration des contenus, les scénarios d'expiration, les sauvegardes et une restauration réellement testée, la charge à 100 vitrines, le mobile et les réseaux lents. Voir [docs/ACCEPTANCE_V16.md](docs/ACCEPTANCE_V16.md).
