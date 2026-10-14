@@ -21,7 +21,7 @@ Ce tableau distingue ce qui existe dans le dépôt de ce qui a été confirmé e
 | Sauvegarde / restauration | À faire | Procédure, rotation et restauration testée |
 | Capacité pour 100 vitrines | À faire | Pas de test de charge ni mesure de capacité certifiée |
 | CI syntaxe et contrat public | Réussi | Workflow GitHub Actions : contrôle JS et tests API publics passés sur le commit `8c7f5bc4` |
-| Déploiement complet Pages + Worker | Bloqué par configuration | Le workflow saute le déploiement si `CLOUDFLARE_ACCOUNT_ID` et `CLOUDFLARE_API_TOKEN` sont absents des secrets GitHub |
+| Déploiement Pages | Confirmé | Déploiement de production réussi le 14/10/2026 ; commit servi `bf41161a5f2be75da78c2df7b6bab438a6f096af` |\n| Déploiement Worker API | Confirmé | Source `src/worker.js` de `main` publiée directement via l’API Cloudflare le 14/10/2026 ; bindings D1/R2 conservés et `AI_ENABLED=false` |\n| Configuration du super-admin | Bloquée | Aucun secret `ADMIN_BOOTSTRAP_SECRET` n’est configuré ; le bootstrap reste volontairement fermé jusqu’à cette configuration |
 
 ## Décisions commerciales préservées
 
