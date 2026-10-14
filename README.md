@@ -25,7 +25,7 @@
 Ce projet est en phase d'implémentation et n'est pas encore prêt pour une commercialisation publique. Les vitrines sont créées en brouillon ; le parcours d'activation administrateur et les abonnements ne sont pas terminés. Les uploads R2 avec contrôles MIME/EXIF/quota, le tableau de bord super-admin, les reçus, les statistiques, les tests automatisés d'isolation, la sauvegarde/restauration et la vérification juridique restent à réaliser. L'IA et les paiements en ligne sont désactivés.
 
 ## Déploiement automatique
-Le workflow GitHub Actions déploie le Worker et la vitrine à chaque push sur `main`. Il nécessite les secrets de dépôt `CLOUDFLARE_ACCOUNT_ID` et `CLOUDFLARE_API_TOKEN` (token Cloudflare avec droits de déploiement Workers et Pages). La dernière vitrine a été publiée directement par API ; le prochain déploiement automatique dépend de ces secrets.
+Cloudflare Pages est relié à GitHub : les commits sur `main` déclenchent automatiquement le déploiement de la vitrine. Le workflow GitHub Actions déploie le Worker API lorsque les secrets `CLOUDFLARE_ACCOUNT_ID` et `CLOUDFLARE_API_TOKEN` sont configurés ; sans eux, l'étape Worker est ignorée sans faire échouer le workflow. Le Worker est déjà déployé directement dans Cloudflare.
 
 ## Décisions V14 préservées
 - Starter : 30 produits, 12 posts illustrés, 30 posts texte, 150 Mo.
