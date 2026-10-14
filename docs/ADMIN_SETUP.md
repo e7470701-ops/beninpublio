@@ -30,4 +30,4 @@ Les actions administratives sont journalisées. Les paiements en ligne ne sont p
 
 Le workflow `.github/workflows/deploy-pages.yml` exécute les contrôles de syntaxe et les tests de contrat de l'API. Pour autoriser le déploiement automatique de Pages et du Worker après les tests, configure les secrets de dépôt GitHub `CLOUDFLARE_ACCOUNT_ID` et `CLOUDFLARE_API_TOKEN` avec les permissions Cloudflare minimales nécessaires.
 
-Sans ces secrets, le workflow valide le code mais ignore le déploiement. Le secret de bootstrap du super-admin est distinct et doit rester uniquement dans les secrets du Worker.
+Sans ces secrets, le workflow valide le code mais ignore le déploiement. Après les avoir ajoutés, lance manuellement le workflow « Validate and deploy BeninPublio » depuis l’onglet Actions, ou pousse un nouveau commit. Le secret de bootstrap du super-admin est distinct et doit rester uniquement dans les secrets du Worker.
