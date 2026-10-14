@@ -17,3 +17,8 @@ CREATE TABLE IF NOT EXISTS analytics_daily(tenant_id TEXT NOT NULL REFERENCES st
 CREATE TABLE IF NOT EXISTS ai_usage(id TEXT PRIMARY KEY,tenant_id TEXT NOT NULL REFERENCES stores(id),provider TEXT NOT NULL,model TEXT NOT NULL,feature TEXT NOT NULL,units INTEGER NOT NULL DEFAULT 0,estimated_cost_usd REAL NOT NULL DEFAULT 0,status TEXT NOT NULL,created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
 CREATE TABLE IF NOT EXISTS audit_logs(id TEXT PRIMARY KEY,actor_id TEXT REFERENCES users(id),tenant_id TEXT REFERENCES stores(id),action TEXT NOT NULL,target TEXT,metadata_json TEXT NOT NULL DEFAULT '{}',created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
 -- Toutes les requêtes tenant-scoped doivent dériver le tenant d'une session vérifiée côté serveur.
+
+CREATE TABLE IF NOT EXISTS sessions (id TEXT PRIMARY KEY,user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,token_hash TEXT NOT NULL UNIQUE,expires_at TEXT NOT NULL,created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
+CREATE INDEX IF NOT EXISTS idx_sessions_user ON sessions(user_id);
+CREATE TABLE IF NOT EXISTS rate_limits(bucket TEXT PRIMARY KEY,window_started INTEGER NOT NULL,attempts INTEGER NOT NULL DEFAULT 0);
+CREATE INDEX IF NOT EXISTS idx_stores_owner ON stores(owner_user_id);
