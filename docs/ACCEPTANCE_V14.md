@@ -34,8 +34,8 @@ Ce tableau distingue ce qui existe dans le dépôt de ce qui a été confirmé e
 
 ## Conditions avant pilote
 
-1. Configurer les secrets de déploiement GitHub pour publier la version du dépôt.
-2. Configurer `ADMIN_BOOTSTRAP_SECRET` côté Worker, créer le super-admin, puis retirer ce secret.
+1. Configurer `ADMIN_BOOTSTRAP_SECRET` dans Cloudflare Worker > Settings > Variables and Secrets, créer le super-admin via `/admin.html`, puis retirer le secret.
+2. Pour automatiser les prochains déploiements Worker depuis GitHub, configurer `CLOUDFLARE_ACCOUNT_ID` et `CLOUDFLARE_API_TOKEN` dans les secrets Actions.
 3. Rejouer inscription → configuration → activation → image → publication → vitrine publique → panier WhatsApp → reçu.
 4. Tester deux comptes et confirmer qu’aucune donnée ou image ne peut être lue/modifiée depuis l’autre tenant.
 5. Tester quotas, expiration, suspension, restauration, mobile et réseau lent.
