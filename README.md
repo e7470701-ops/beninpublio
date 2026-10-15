@@ -4,7 +4,7 @@
 
 ## Source de vérité
 
-- Référence des évolutions V16.1 (parcours de commande, modèles réutilisables, livraison administrée et connexion téléphone) : [docs/REFERENCE_PRODUIT_V16_1.md](docs/REFERENCE_PRODUIT_V16_1.md). Ce document complète V16 et distingue les fonctions déjà présentes des travaux à réaliser.
+- Référence produit V16.2 (création administrée, offres Simple/Starter/PRO, recherche catalogue, IA PRO, statistiques et livraison) : [docs/REFERENCE_PRODUIT_V16_1.md](docs/REFERENCE_PRODUIT_V16_1.md). Les capacités non implémentées y restent marquées comme à faire.
 
 Le cahier des charges fonctionnel et technique **V16 du 14 octobre 2026** remplace les documents antérieurs pour les nouvelles décisions. BeninPublio est la plateforme SaaS qui crée, héberge et gère des vitrines individuelles. Chaque commerçant gère uniquement sa vitrine ; le visiteur final voit uniquement la page publique de ce commerce.
 
@@ -51,14 +51,16 @@ Le déploiement technique n'est pas équivalent à une recette de production. Av
 - Le workflow utilise le secret GitHub Actions `CLOUDFLARE_API_TOKEN` ; l'identifiant de compte Cloudflare est configuré dans le workflow. Le dernier déploiement automatisé Worker + Pages a réussi.
 - Le schéma initial V16 est décrit dans `db/migrations/0001_initial.sql`; les modifications de production sont documentées dans `db/migrations/0002_v16_storefront.sql`.
 
-## Formules de référence
+## Formules de référence V16.2
 
-| Limite | Starter | PRO |
-|---|---:|---:|
-| Produits actifs | 30 | 70 |
-| Images par produit | 1 | 3 |
-| Posts illustrés actifs | 12 | 30 |
-| Posts textuels actifs | 30 | 50 |
-| Stockage par vitrine | 150 Mo | 250 Mo |
+| Fonctionnalité | Simple | Starter | PRO |
+|---|---:|---:|---:|
+| Prix mensuel | 2 700 FCFA | 5 500 FCFA | 11 300 FCFA |
+| Produits actifs | 30 | 75 | 130 |
+| Images par produit | 1 | 1 | 3 |
+| Stockage indicatif | 50 Mo | 150 Mo | 250 Mo |
+| Recherche intelligente catalogue | Non | Oui | Oui |
+| IA avancée | Non | Non | Oui |
+| Statistiques avancées / export CSV | Non | Non | Oui |
 
-Prix évoqués, **à valider avant commercialisation** : Starter 5 500 FCFA/mois, PRO 11 300 FCFA/mois.
+Les quotas de publications V16 restent provisoirement inchangés dans la migration V16.2 ; le quota Simple est à valider. La migration `db/migrations/0003_v16_2_plan_tiers.sql` doit être appliquée à D1 avant que les nouvelles limites soient considérées actives en production. Les fonctions IA restent indisponibles tant que `AI_ENABLED=false`.
