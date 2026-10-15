@@ -37,7 +37,7 @@ try{await env.DB.batch([env.DB.prepare("INSERT INTO users(id,email,phone,passwor
 if(path==="/api/auth/login"&&method==="POST"){
 const ip=request.headers.get("cf-connecting-ip")||"unknown";if(!await rateLimit(env,"login:"+ip,10))return fail("too_many_attempts",429);
 let b;try{b=await readJson(request)}catch{return fail("invalid_json_or_payload")}
-const email=String(b.email||"").trim().toLowerCase(),password=String(b.password||"");const u=await env.DB.prepare("SELECT * FROM users WHERE email=?").bind(email).first();
+const identifier=String(b.identifier||b.phone||b.email||"").trim(),email=identifier.toLowerCase(),phone=identifier.replace(/[\\s().-]/g,"");const password=String(b.password||"");const u=await env.DB.prepare("SELECT * FROM users WHERE email=? OR phone=?").bind(email,phone).first();
 if(!u||!(await verifyPassword(password,u.password_hash)))return fail("invalid_credentials",401);if(u.status!=="active")return fail("account_unavailable",403);
 const session=await newSession(env,u.id);return json({user:safeUser(u),...session})
 }
