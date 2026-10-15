@@ -1,7 +1,7 @@
-# BeninPublio — Référence produit et plan d’application V16.1
+# BeninPublio — Référence produit et plan d’application V16.2
 
 Date : 15 octobre 2026  
-Statut : référence de travail pour les évolutions du produit.  
+Statut : référence produit mise à jour selon les décisions du 15 octobre 2026.  
 Base : architecture V16 existante dans ce dépôt. Ce document complète V16 sans effacer ses règles de sécurité et de quotas.
 
 ## 1. Vision du produit
@@ -20,7 +20,7 @@ Objectif : présenter BeninPublio comme plateforme, ses services, les offres, le
 - Présentation claire de la plateforme, pas d’une boutique collective.
 - Services : vitrine individuelle, catalogue, WhatsApp, QR code, statistiques et gestion autonome.
 - Galerie de modèles réellement disponibles, avec aperçu et type d’activité.
-- Offres Starter et PRO, avec quotas V16. Les prix 5 500 et 11 300 FCFA/mois restent indicatifs tant que leur validation commerciale n’est pas consignée.
+- Trois offres : Simple (2 700 FCFA/mois), Starter (5 500 FCFA/mois) et PRO (11 300 FCFA/mois), selon les quotas du tableau de la section 5. Ces tarifs sont les prix de référence communiqués par le propriétaire du projet.
 - Parcours réel : le commerçant contacte BeninPublio, l’équipe prépare la vitrine, puis livre les accès ; le commerçant peut ensuite se connecter et gérer ses contenus.
 - CTA « Commander ma vitrine sur WhatsApp » et CTA « Espace commerçant » bien distincts.
 - Navigation simple entre l’accueil et l’espace commerçant.
@@ -82,19 +82,33 @@ Règles :
 - Toute création de vitrine et de compte doit être atomique ou disposer d’une compensation en cas d’échec.
 - Aucun secret ni mot de passe de client ne doit être commité.
 
-## 5. Limites commerciales V16 à préserver
+## 5. Offres commerciales et limites à appliquer
 
-| Limite | Starter | PRO |
-|---|---:|---:|
-| Produits actifs | 30 | 70 |
-| Images par produit | 1 | 3 |
-| Publications illustrées | 12 | 30 |
-| Publications textuelles | 30 | 50 |
-| Stockage par vitrine | 150 Mo | 250 Mo |
+| Fonctionnalité | Simple | Starter | PRO |
+|---|---:|---:|---:|
+| Prix mensuel | 2 700 FCFA | 5 500 FCFA | 11 300 FCFA |
+| Produits actifs maximum | 30 | 75 | 130 |
+| Images par produit | 1 | 1 | 3 |
+| Stockage par vitrine (indicatif) | 50 Mo | 150 Mo | 250 Mo |
+| Boutique publique | Oui | Oui | Oui |
+| Commandes WhatsApp | Oui | Oui | Oui |
+| Recherche intelligente dans le catalogue | Non | Oui | Oui |
+| IA avancée avec quotas supérieurs | Non | Non | Oui |
+| Gestion du catalogue | Oui | Oui | Oui |
+| Statistiques de base | À définir | Oui | Oui |
+| Statistiques avancées | Non | Non | Oui |
+| Export CSV | Non | Non | Oui |
 
-Prix évoqués mais à confirmer : Starter 5 500 FCFA/mois ; PRO 11 300 FCFA/mois.
+Les quotas de publications illustrées/textuelles V16 (12/30 pour Starter et 30/50 pour PRO) restent inchangés provisoirement, car aucune nouvelle limite n’a été donnée pour ces deux types de contenu. Le nombre de publications autorisées en Simple reste à préciser. Les tailles de stockage sont indicatives et doivent être validées par mesure réelle du stockage et par tests de limites.
 
-Paiement en ligne et fonctionnalités IA restent hors MVP tant qu’ils ne sont pas explicitement validés. Le parcours de commande utilise WhatsApp avec confirmation manuelle.
+### Comportement attendu des fonctionnalités
+- La recherche simple actuelle dans la vitrine ne doit pas être présentée comme une IA. Starter et PRO auront une recherche catalogue plus intelligente, par exemple tolérance aux variantes de saisie et recherche combinant nom, description et catégorie. Les détails exacts et les quotas de calcul sont à spécifier et tester.
+- L’IA avancée est réservée à PRO. Les quotas doivent être appliqués côté serveur et visibles pour l’administrateur et le commerçant. Tant que `AI_ENABLED=false` et qu’aucun fournisseur n’est configuré, l’IA n’est pas disponible en production : l’interface ne doit pas prétendre le contraire.
+- La priorité d’utilisation des fournisseurs gratuits, puis le budget payant plafonné, doit être mise en place avec une limite de coût et des journaux d’usage sans données sensibles.
+- Les statistiques distinguent : visite de boutique, clic WhatsApp et commande suivie dans BeninPublio. Un clic WhatsApp n’est pas une commande confirmée.
+- Pour suivre les commandes invalidées, il faut enregistrer les demandes et leurs statuts (« En attente », « Validée », « Invalidée »). Le statut ne peut pas être deviné à partir d’un clic externe WhatsApp.
+- L’export CSV et les statistiques avancées sont réservés à PRO.
+- Paiement en ligne reste hors MVP ; les commandes clients utilisent WhatsApp et confirmation manuelle.
 
 ## 6. Plan d’application par étapes
 
@@ -104,6 +118,8 @@ Paiement en ligne et fonctionnalités IA restent hors MVP tant qu’ils ne sont 
 - [ ] Ajouter un CTA WhatsApp de commande avec message prérempli.
 - [ ] Ajouter un lien de retour vers l’accueil dans l’espace commerçant.
 - [ ] Afficher les modèles réellement disponibles, en distinguant modèles fonctionnels et aperçus.
+- [ ] Afficher les trois offres Simple, Starter et PRO avec prix et quotas corrects.
+- [ ] Séparer la recherche catalogue Starter/PRO de l’IA avancée PRO.
 
 ### Étape B — Bibliothèque de modèles
 - [ ] Définir le schéma D1 pour modèles, versions, champs configurables et statut.
@@ -155,3 +171,12 @@ La fonctionnalité n’est pas considérée terminée tant que :
 - L’état du dépôt ou un déploiement réussi ne remplace pas les tests d’intégration et de navigateur.
 
 Ce document complète V16 comme référence de la prochaine évolution. Toute divergence entre l’interface, l’API, la base et ce parcours doit être résolue par une modification coordonnée et testée.
+
+
+## 9. Décisions V16.2 du 15 octobre 2026
+
+- La plateforme est un service accompagné de création de boutiques : l’équipe configure initialement la vitrine, puis le commerçant gère son catalogue.
+- Les offres Simple, Starter et PRO et leurs prix/quotas produits sont ceux du tableau de la section 5.
+- Les capacités de recherche intelligente Starter/PRO et l’IA avancée PRO sont des objectifs produit ; elles ne sont pas considérées disponibles avant leur implémentation et leur validation en production.
+- Les statistiques doivent différencier visites, clics WhatsApp et commandes suivies avec statut. Les commandes invalidées nécessitent un enregistrement explicite dans BeninPublio.
+- Les quotas de publications existants restent inchangés provisoirement ; le quota Simple et les détails précis de la recherche intelligente et des quotas IA restent à définir.
