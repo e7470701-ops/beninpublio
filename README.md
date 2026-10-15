@@ -4,6 +4,8 @@
 
 ## Source de vérité
 
+- Référence des évolutions V16.1 (parcours de commande, modèles réutilisables, livraison administrée et connexion téléphone) : [docs/REFERENCE_PRODUIT_V16_1.md](docs/REFERENCE_PRODUIT_V16_1.md). Ce document complète V16 et distingue les fonctions déjà présentes des travaux à réaliser.
+
 Le cahier des charges fonctionnel et technique **V16 du 14 octobre 2026** remplace les documents antérieurs pour les nouvelles décisions. BeninPublio est la plateforme SaaS qui crée, héberge et gère des vitrines individuelles. Chaque commerçant gère uniquement sa vitrine ; le visiteur final voit uniquement la page publique de ce commerce.
 
 ## Environnements
