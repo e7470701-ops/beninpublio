@@ -4,6 +4,10 @@ Dernière mise à jour : 14 octobre 2026. Le cahier des charges V16 est la sourc
 
 ## État des livrables
 
+| Référence produit V16.1 | Document ajouté | `docs/REFERENCE_PRODUIT_V16_1.md` définit le parcours de commande, les modèles, la livraison administrée, l’authentification téléphone et les critères d’acceptation ; les fonctionnalités non réalisées y restent explicitement marquées comme à faire. |
+| Connexion téléphone ou e-mail | Code adapté, recette à faire | L’API accepte désormais un identifiant téléphone ou e-mail et le formulaire commerçant l’annonce. Vérifier la normalisation avec numéros réels, l’unicité des téléphones et la non-régression des comptes e-mail avant de considérer le parcours validé. |
+| Création/clonage de vitrines depuis l’administration | À faire | La console existante ne dispose pas encore de la bibliothèque de modèles ni du parcours sécurisé de clonage et de livraison ; ne pas présenter cette capacité comme disponible. |
+
 | Exigence V16 | État | Preuve / point restant |
 |---|---|---|
 | Positionnement plateforme distinct des vitrines | Implémenté dans le code et déployé | `index.html` présente BeninPublio comme la plateforme ; `storefront.html` est le rendu individuel |
@@ -25,6 +29,10 @@ Dernière mise à jour : 14 octobre 2026. Le cahier des charges V16 est la sourc
 | Recette mobile/réseau lent | À faire | Tester sur appareils réels et connexions lentes |
 | Déploiement Worker V16 | Confirmé | Dernier déploiement `89a38c89-e440-4c96-8173-72af2d68a133` accepté avec D1/R2, `AI_ENABLED=false`, routes admin corrigées, garde d'authentification et rotation du mot de passe |
 | Déploiement Pages V16 | Confirmé | Déploiement Direct Upload de production `1e15abc0-65a4-4ae2-a8ec-a6e4a1a51d06`, statut `success` |
+
+## Référence V16.1
+
+La nouvelle référence produit est conservée dans [docs/REFERENCE_PRODUIT_V16_1.md](REFERENCE_PRODUIT_V16_1.md). Elle complète V16 ; elle ne signifie pas que tous les éléments de la feuille de route sont déjà développés ou déployés.
 
 ## Intégration du brief design V1
 
